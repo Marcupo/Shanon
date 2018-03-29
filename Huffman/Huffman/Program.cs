@@ -12,16 +12,16 @@ namespace Huffman
 {
     class Program
     {
-        static void Main(string[] args)
+
+
+        public static string LireFichier(string chemin)
+        {
+            return File.ReadAllText(chemin);
+        }
+
+        public static Dictionary<char, int> TrieDico(string text)
         {
             Dictionary<char, int> dico = new Dictionary<char, int>();
-
-            Console.WriteLine("Veuillez entrez le nom du fichier à analyser");
-
-            string fichier = "./test.txt";//Console.ReadLine();
-            string text = File.ReadAllText(fichier);
-
-            //Console.Write(text);
 
             foreach (char lettre in text)
             {
@@ -31,22 +31,36 @@ namespace Huffman
                     dico[lettre]++;
             }
 
-            // Order by values.
-            // ... Use LINQ to specify sorting by value.
-            var items = from pair in dico orderby pair.Value descending select pair;
-
-            foreach (KeyValuePair<char, int> pair in items)
+            var sortedList = from pair in dico orderby pair.Value descending select pair;
+            Dictionary<char, int> dicoTrier = new Dictionary<char, int>();
+            foreach (KeyValuePair<char, int> lettre in sortedList)
             {
-                Console.WriteLine("{0}: {1}", pair.Key, pair.Value);
+                dicoTrier.Add(lettre.Key, lettre.Value);
             }
 
+            return dicoTrier;
+        }
 
-            /* foreach (char lettre in dico.Keys)
-             {
-                 Console.WriteLine("Lettre : " + lettre.ToString() + " | Recurrence : " + dico[lettre].ToString()+" | Probabilités : " + ((float)dico[lettre]/(float)dico.Count).ToString());
-             }*/
+        static void AffichageDico(Dictionary<char, int> dico)
+        {
+            foreach (char lettre in dico.Keys)
+            {
+                Console.WriteLine("Lettre : " + lettre.ToString() + " | Recurrence : " + dico[lettre].ToString() + " | Probabilités : " + ((float)dico[lettre] / (float)dico.Count).ToString());
+            }
+        }
+
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Veuillez entrez le nom du fichier à analyser");
+            string fichier = "./test.txt";//Console.ReadLine();
+        
+            Dictionary<char, int> dico = TrieDico(LireFichier(fichier));
+
+            AffichageDico(dico);
 
             Console.ReadKey();
         }
+        
+
     }
 }
