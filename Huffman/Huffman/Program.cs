@@ -33,7 +33,7 @@ namespace Huffman
                     dico[lettre]++;
             }
 
-            for(int i = 0; i < dico.Count; i++)
+            for (int i = 0; i < dico.Count; i++)
             {
                 char lettre = dico.ElementAt(i).Key;
                 dico[lettre] = (dico[lettre] / text.Length);
@@ -64,19 +64,36 @@ namespace Huffman
         {
             public char Key { get; set; }
             public double Proba { get; set; }
-    };
+        };
 
-        public static List<TreeContent> CreateTree(Dictionary<char, double> dico)
+        public static TreeContent[] CreateTree(Dictionary<char, double> dico)
         {
-            Console.WriteLine("_______");
-            List<TreeContent> Huffman = new List<TreeContent>();
+            List<TreeContent> ListAInserer = new List<TreeContent>();
+            TreeContent[] HuffmanTree = new TreeContent[dico.Count];
             foreach (char chara in dico.Keys)
             {
-                Huffman.Add(new TreeContent() { Key = chara , Proba = dico[chara] });
-                Console.WriteLine("Chara : "+chara + "Proba : " + dico[chara]);
+                ListAInserer.Add(new TreeContent() { Key = chara, Proba = dico[chara] });
             }
 
-            return Huffman;
+            int last = 0;
+            //  Creation de l'arbre Huffman
+            for (int i = 0; i < HuffmanTree.Length; i += 2)
+            {
+                TriParTas(ListAInserer);
+
+                last = HuffmanTree.Length - 1 - i;
+
+                HuffmanTree[last] = ListAInserer[last];
+                HuffmanTree[last - 1] = ListAInserer[last - 1];
+
+                ListAInserer.Add(new TreeContent() { Key = ListAInserer[last].Key, Proba = (ListAInserer[last].Proba + ListAInserer[last - 1].Proba) });
+
+                ListAInserer.RemoveAt(ListAInserer.Count - 1);
+                ListAInserer.RemoveAt(ListAInserer.Count - 1);
+            }
+
+
+            return HuffmanTree;
         }
 
         public static List<TreeContent> TriParTas(List<TreeContent> list)
@@ -84,16 +101,16 @@ namespace Huffman
             TreeContent temp;
             for (int i = 0; i < list.Count; i++)
             {
-                list = Tas(list,list.Count-i);
+                list = Tas(list, list.Count - 1 - i);
                 temp = list[0];
-                list[0] = list[list.Count- i];
-                list[list.Count - i] = temp;
+                list[0] = list[list.Count - 1 - i];
+                list[list.Count - 1 - i] = temp;
             }
-            
+
             return list;
         }
 
-        public static List<TreeContent> Tas(List<TreeContent> list,int taille)
+        public static List<TreeContent> Tas(List<TreeContent> list, int taille)
         {
             for (int i = 1; i < taille; i++)
             {
@@ -102,21 +119,21 @@ namespace Huffman
             return list;
         }
 
-        public static List<TreeContent> TriTasParents(List<TreeContent> list,int index)
+        public static List<TreeContent> TriTasParents(List<TreeContent> list, int index)
         {
             double x = index / 2;
             int y = (int)Math.Ceiling(x);
-            if (list[index].Proba > list[y - 1].Proba)
-            {
-                TreeContent z = list[index];
-                list[index] = list[y - 1];
-                list[y - 1] = z;
-                if (y != 0)
-                    TriTasParents(list, y);
-            }
+            if (y - 1 > 0)
+                if (list[index].Proba > list[y - 1].Proba)
+                {
+                    TreeContent z = list[index];
+                    list[index] = list[y - 1];
+                    list[y - 1] = z;
+                    if (y != 0)
+                        TriTasParents(list, y);
+                }
             return list;
         }
-
 
         static void Main(string[] args)
         {
@@ -133,11 +150,16 @@ namespace Huffman
 
             Console.WriteLine("Entropie : " + entropie.ToString());
 
-            //CreateTree(dico);
+            TreeContent[] myTab = CreateTree(dico);
+
+            foreach (var item in myTab)
+            {
+                Console.WriteLine("Key : " + item.Key + " Proba : " + item.Proba);
+            }
 
             Console.ReadKey();
 
         }
-        
+
     }
 }
