@@ -79,61 +79,62 @@ namespace Huffman
             //  Creation de l'arbre Huffman
             for (int i = 0; i < HuffmanTree.Length; i += 2)
             {
-                TriParTas(ListAInserer);
+                ListAInserer.Sort();
 
                 last = HuffmanTree.Length - 1 - i;
+                if (last != 0)
+                {
+                    HuffmanTree[last] = ListAInserer[last];
+                    HuffmanTree[last - 1] = ListAInserer[last - 1];
 
-                HuffmanTree[last] = ListAInserer[last];
-                HuffmanTree[last - 1] = ListAInserer[last - 1];
+                    ListAInserer.Add(new TreeContent() { Key = ' ', Proba = (ListAInserer[last].Proba + ListAInserer[last - 1].Proba) });
 
-                ListAInserer.Add(new TreeContent() { Key = ListAInserer[last].Key, Proba = (ListAInserer[last].Proba + ListAInserer[last - 1].Proba) });
-
-                ListAInserer.RemoveAt(ListAInserer.Count - 1);
-                ListAInserer.RemoveAt(ListAInserer.Count - 1);
+                    ListAInserer.RemoveAt(ListAInserer.Count - 2);
+                    ListAInserer.RemoveAt(ListAInserer.Count - 2);
+                }
             }
-
 
             return HuffmanTree;
         }
 
-        public static List<TreeContent> TriParTas(List<TreeContent> list)
-        {
-            TreeContent temp;
-            for (int i = 0; i < list.Count; i++)
-            {
-                list = Tas(list, list.Count - 1 - i);
-                temp = list[0];
-                list[0] = list[list.Count - 1 - i];
-                list[list.Count - 1 - i] = temp;
-            }
+        //public static List<TreeContent> TriParTas(List<TreeContent> list)
+        //{
+        //    TreeContent temp;
+        //    for (int i = 0; i < list.Count; i++)
+        //    {
+        //        list = Tas(list, list.Count - i);
+        //        temp = list[0];
+        //        list[0] = list[list.Count - 1 - i];
+        //        list[list.Count - 1 - i] = temp;
+        //    }
 
-            return list;
-        }
+        //    return list;
+        //}
 
-        public static List<TreeContent> Tas(List<TreeContent> list, int taille)
-        {
-            for (int i = 1; i < taille; i++)
-            {
-                list = TriTasParents(list, i);
-            }
-            return list;
-        }
+        //public static List<TreeContent> Tas(List<TreeContent> list, int taille)
+        //{
+        //    for (int i = 1; i < taille; i++)
+        //    {
+        //        list = TriTasParents(list, i);
+        //    }
+        //    return list;
+        //}
 
-        public static List<TreeContent> TriTasParents(List<TreeContent> list, int index)
-        {
-            double x = index / 2;
-            int y = (int)Math.Ceiling(x);
-            if (y - 1 > 0)
-                if (list[index].Proba > list[y - 1].Proba)
-                {
-                    TreeContent z = list[index];
-                    list[index] = list[y - 1];
-                    list[y - 1] = z;
-                    if (y != 0)
-                        TriTasParents(list, y);
-                }
-            return list;
-        }
+        //public static List<TreeContent> TriTasParents(List<TreeContent> list, int index)
+        //{
+        //    double x = index / 2;
+        //    int y = (int)Math.Ceiling(x);
+        //    if (y - 1 > 0)
+        //        if (list[index].Proba > list[y - 1].Proba)
+        //        {
+        //            TreeContent z = list[index];
+        //            list[index] = list[y - 1];
+        //            list[y - 1] = z;
+        //            if (y != 0)
+        //                TriTasParents(list, y);
+        //        }
+        //    return list;
+        //}
 
         static void Main(string[] args)
         {
