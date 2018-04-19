@@ -39,14 +39,7 @@ namespace Huffman
                 dico[lettre] = (dico[lettre] / text.Length);
             }
 
-            var sortedList = from pair in dico orderby pair.Value descending select pair;
-            Dictionary<char, double> dicoTrier = new Dictionary<char, double>();
-            foreach (KeyValuePair<char, double> lettre in sortedList)
-            {
-                dicoTrier.Add(lettre.Key, lettre.Value);
-            }
-
-            return dicoTrier;
+            return dico;
         }
 
         static void AffichageDico(Dictionary<char, double> dico)
@@ -75,18 +68,60 @@ namespace Huffman
 
         public static List<TreeContent> CreateTree(Dictionary<char, double> dico)
         {
+            Console.WriteLine("_______");
             List<TreeContent> Huffman = new List<TreeContent>();
             foreach (char chara in dico.Keys)
             {
                 Huffman.Add(new TreeContent() { Key = chara , Proba = dico[chara] });
+                Console.WriteLine("Chara : "+chara + "Proba : " + dico[chara]);
             }
+
             return Huffman;
         }
+
+        public static List<TreeContent> TriParTas(List<TreeContent> list)
+        {
+            TreeContent temp;
+            for (int i = 0; i < list.Count; i++)
+            {
+                list = Tas(list,list.Count-i);
+                temp = list[0];
+                list[0] = list[list.Count- i];
+                list[list.Count - i] = temp;
+            }
+            
+            return list;
+        }
+
+        public static List<TreeContent> Tas(List<TreeContent> list,int taille)
+        {
+            for (int i = 1; i < taille; i++)
+            {
+                list = TriTasParents(list, i);
+            }
+            return list;
+        }
+
+        public static List<TreeContent> TriTasParents(List<TreeContent> list,int index)
+        {
+            double x = index / 2;
+            int y = (int)Math.Ceiling(x);
+            if (list[index].Proba > list[y - 1].Proba)
+            {
+                TreeContent z = list[index];
+                list[index] = list[y - 1];
+                list[y - 1] = z;
+                if (y != 0)
+                    TriTasParents(list, y);
+            }
+            return list;
+        }
+
 
         static void Main(string[] args)
         {
             Console.WriteLine("Veuillez entrez le nom du fichier à analyser");
-            string fichier = "./test.txt";//Console.ReadLine();
+            string fichier = "./TheSonnets.txt";//Console.ReadLine();
 
             string text = LireFichier(fichier);
             int longueurText = text.Length;
@@ -97,6 +132,8 @@ namespace Huffman
             double entropie = EntropieCalcul(dico, longueurText);
 
             Console.WriteLine("Entropie : " + entropie.ToString());
+
+            //CreateTree(dico);
 
             Console.ReadKey();
 
