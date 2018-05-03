@@ -114,10 +114,23 @@ namespace Huffman
             return dicoTrier;
         }
 
-        unsafe public static Noeud createNoeud(double proba, Noeud* SAG = null, Noeud* SAD = null, char key = '\0')
+        unsafe public static Noeud CreateNoeud(double proba, Noeud* SAG = null, Noeud* SAD = null, char key = '\0')
         {
             Noeud node = new Noeud { Proba = proba, ElementG = SAG, ElementD = SAD, Lettre = key };
             return node;
+        }
+
+        unsafe public static List<Noeud> TriListe(List<Noeud> liste)
+        {
+            var sortedList = from pair in liste orderby pair.Proba descending select pair;
+            List<Noeud> listTrier = new List<Noeud>();
+            foreach (Noeud cactus in sortedList)
+            {
+                listTrier.Add(new Noeud { Proba = cactus.Proba, ElementG = cactus.ElementG, ElementD = cactus.ElementD, Lettre = cactus.Lettre });
+            }
+
+            return listTrier;
+
         }
 
         unsafe public static Noeud CreateTree(Dictionary<char, double> dico)
@@ -132,35 +145,39 @@ namespace Huffman
                 arbre.Add(n);
             }
 
-            
-            /*Noeud temp;
-            Noeud connexion;
-            
-            while (dico != null) {
-                dico = TriDico(dico);
-                Noeud firstNode = createNoeud(dico[dico.Last().Key], null, null, dico.Last().Key);
-                dico.Remove(dico.Last().Key);
-                Noeud secondNode = createNoeud(dico[dico.Last().Key], null, null, dico.Last().Key);
-                dico.Remove(dico.Last().Key);
-                // Qu'est ce qu'il reste de la boucle d'avant ici ?
-                //  Juste une proba dans un dico
+            while (arbre != null)
+            {
+                arbre = TriListe(arbre);
 
-                double addition = firstNode.Proba + secondNode.Proba;
-                //Création de connexion
-                connexion = createNoeud(addition, &firstNode, &secondNode);
-                
-                if (dico.ContainsKey('\0')) {
-                    addition = tree.Proba + connexion.Proba;
-                    temp = createNoeud(addition, &tree, &connexion);
-                    tree = temp;
-                    dico.Remove('\0');
-                } else {
-                    tree = connexion;
-                }
 
-                dico.Add('\0', addition);
+            }
 
-            } // Suppression de connexion*/
+            //Noeud temp;
+            //Noeud connexion;
+
+            //while (dico != null) {
+            //    dico = TriDico(dico);
+            //    Noeud firstNode = createNoeud(dico[dico.Last().Key], null, null, dico.Last().Key);
+            //    dico.Remove(dico.Last().Key);
+            //    Noeud secondNode = createNoeud(dico[dico.Last().Key], null, null, dico.Last().Key);
+            //    dico.Remove(dico.Last().Key);
+
+            //    double addition = firstNode.Proba + secondNode.Proba;
+            //    //Création de connexion
+            //    connexion = createNoeud(addition, &firstNode, &secondNode);
+
+            //    if (dico.ContainsKey('\0')) {
+            //        addition = tree.Proba + connexion.Proba;
+            //        temp = createNoeud(addition, &tree, &connexion);
+            //        tree = temp;
+            //        dico.Remove('\0');
+            //    } else {
+            //        tree = connexion;
+            //    }
+
+            //    dico.Add('\0', addition);
+
+            //}
             return tree;
         }
 
