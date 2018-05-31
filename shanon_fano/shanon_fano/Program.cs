@@ -65,7 +65,7 @@ namespace shanon_fano
 
         public static Dictionary<char, double> TriDico(Dictionary<char, double> dico)
         {
-            var sortedList = from pair in dico orderby pair.Value descending select pair;
+            var sortedList = from pair in dico orderby pair.Value ascending select pair;
             Dictionary<char, double> dicoTrier = new Dictionary<char, double>();
             foreach (KeyValuePair<char, double> lettre in sortedList)
             {
@@ -103,11 +103,11 @@ namespace shanon_fano
                 if (list_encode.Count == 2)
                 {
                     temp = list_encode[0];
-                    temp.Code += "0";
+                    temp.Code += "1";
                     list_encode[0] = temp;
 
                     temp = list_encode[1];
-                    temp.Code += "1";
+                    temp.Code += "0";
                     list_encode[1] = temp;
                 }
             }
@@ -121,7 +121,7 @@ namespace shanon_fano
                     {
                         cpt += list_encode[i].Proba;
                         temp = list_encode[i];
-                        temp.Code += "0";
+                        temp.Code += "1";
                         list_encode[i] = temp;
                         listTraitement.Add(list_encode[i]);
                     }
@@ -141,7 +141,7 @@ namespace shanon_fano
                 for (int i = idxStart; i < list_encode.Count; i++)
                 {
                     temp = list_encode[i];
-                    temp.Code += "1";
+                    temp.Code += "0";
                     list_encode[i] = temp;
                     listTraitement.Add(list_encode[i]);
                 }
@@ -181,11 +181,12 @@ namespace shanon_fano
 
             myList = FillList(dico);
 
-            Encoder(myList, 0.5f);
+            myList = Encoder(myList, 0.5f);
+            myList.Reverse();
             double longeur = 0;
             for (int i = 0; i < myList.Count; i++)
             {
-                Console.WriteLine("Lettre : " + myList[i].Lettre + " Proba : " + myList[i].Proba + " code : " + myList[i].Code);
+                Console.WriteLine("Lettre : " + myList[i].Lettre + " Proba : " + " code : " + myList[i].Code);
                 longeur += myList[i].Code.Length*(myList[i].Proba*text.Length);
             }
             Console.WriteLine("Notre longueur  : "+longeur);
