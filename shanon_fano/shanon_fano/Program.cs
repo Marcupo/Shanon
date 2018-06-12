@@ -156,6 +156,42 @@ namespace shanon_fano
             return list_encode;
         }
 
+        public static byte[] GetBytes(string bitString)
+        {
+            byte[] output = new byte[bitString.Length / 8];
+
+            for (int i = 0; i < output.Length; i++)
+            {
+                for (int b = 0; b <= 7; b++)
+                {
+                    output[i] |= (byte)((bitString[i * 8 + b] == '1' ? 1 : 0) << (7 - b));
+                }
+            }
+
+            return output;
+        }
+
+        public static void WriteFile(List<Element> list_encode, string nomFichier, string text)
+        {
+            FileStream fs = new FileStream(nomFichier, FileMode.Create);
+            Dictionary<Char, string> dico = new Dictionary<char, string>();
+            string tmp = "";
+            foreach (Element element in list_encode)
+            {
+                dico.Add(element.Lettre, element.Code);
+            }
+            foreach (char lettre in text)
+            {
+                foreach (char code in dico[lettre])
+                {
+                    tmp += code;
+                    if (tmp.Length == 8)
+                        fs.WriteByte(GetBytes(tmp)[0]);
+                }
+            }
+            fs.Close();
+        }
+
         static void Main(string[] args)
         {
             Console.WriteLine("Veuillez entrez le nom du fichier à analyser");
@@ -191,6 +227,11 @@ namespace shanon_fano
             }
             Console.WriteLine("Notre longueur  : "+longeur);
             Console.WriteLine("Longueur normal : " + text.Length * 8);
+
+            // Test ecriture dans un fichier
+            WriteFile(myList, "abricot.pom", text);
+
+
             Console.ReadKey();
         }
     }
