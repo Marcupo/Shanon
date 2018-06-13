@@ -104,10 +104,7 @@ namespace shannon_fano
         public static List<Element> FillList(Dictionary<char, double> dico)
         {
             List<Element> nList = new List<Element>();
-            Element temp = new Element
-            {
-                Code = ""
-            };
+            Element temp = new Element();
             foreach (char lettre in dico.Keys)
             {
                 temp.Lettre = lettre;
@@ -196,8 +193,14 @@ namespace shannon_fano
         /// <param name="text">Text a encodé</param>
         public static void WriteFile(List<Element> list_encode, string nomFichier, string text)
         {
-            string Encodage = string.Empty;
+            if(!File.Exists(nomFichier))
+            {
+                File.Create(nomFichier);
+            }
+            
             Dictionary<Char, string> dico = new Dictionary<char, string>();
+            TextWriter tw = new StreamWriter(nomFichier);
+
             foreach (Element element in list_encode)
             {
                 dico.Add(element.Lettre, element.Code);
@@ -206,10 +209,10 @@ namespace shannon_fano
             {
                 foreach (char code in dico[lettre])
                 {
-                    Encodage += code;
+                    tw.Write(code);
                 }
             }
-            File.WriteAllText(nomFichier, Encodage);
+            tw.Close();
         }
 
         public frmMain()

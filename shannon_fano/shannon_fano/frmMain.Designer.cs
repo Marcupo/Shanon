@@ -51,7 +51,7 @@
             this.btnChoisirSource.Location = new System.Drawing.Point(9, 96);
             this.btnChoisirSource.Name = "btnChoisirSource";
             this.btnChoisirSource.Size = new System.Drawing.Size(259, 23);
-            this.btnChoisirSource.TabIndex = 0;
+            this.btnChoisirSource.TabIndex = 1;
             this.btnChoisirSource.Text = "Choisir";
             this.btnChoisirSource.UseVisualStyleBackColor = true;
             // 
@@ -60,7 +60,7 @@
             this.btnDecoder.Location = new System.Drawing.Point(274, 426);
             this.btnDecoder.Name = "btnDecoder";
             this.btnDecoder.Size = new System.Drawing.Size(200, 72);
-            this.btnDecoder.TabIndex = 1;
+            this.btnDecoder.TabIndex = 5;
             this.btnDecoder.Text = "Decoder";
             this.btnDecoder.UseVisualStyleBackColor = true;
             // 
@@ -79,13 +79,13 @@
             this.btnChoisirDestination.Location = new System.Drawing.Point(707, 96);
             this.btnChoisirDestination.Name = "btnChoisirDestination";
             this.btnChoisirDestination.Size = new System.Drawing.Size(259, 23);
-            this.btnChoisirDestination.TabIndex = 3;
+            this.btnChoisirDestination.TabIndex = 4;
             this.btnChoisirDestination.Text = "Choisir";
             this.btnChoisirDestination.UseVisualStyleBackColor = true;
             // 
             // tbxAffichage
             // 
-            this.tbxAffichage.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxAffichage.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxAffichage.Location = new System.Drawing.Point(274, 49);
             this.tbxAffichage.Multiline = true;
             this.tbxAffichage.Name = "tbxAffichage";
@@ -99,7 +99,7 @@
             this.tbxSource.Location = new System.Drawing.Point(9, 70);
             this.tbxSource.Name = "tbxSource";
             this.tbxSource.Size = new System.Drawing.Size(259, 20);
-            this.tbxSource.TabIndex = 5;
+            this.tbxSource.TabIndex = 0;
             this.tbxSource.Text = "Source.txt";
             // 
             // tbxDestination
@@ -107,7 +107,7 @@
             this.tbxDestination.Location = new System.Drawing.Point(707, 70);
             this.tbxDestination.Name = "tbxDestination";
             this.tbxDestination.Size = new System.Drawing.Size(259, 20);
-            this.tbxDestination.TabIndex = 6;
+            this.tbxDestination.TabIndex = 3;
             this.tbxDestination.Text = "Destination.txt";
             // 
             // label1
@@ -116,7 +116,7 @@
             this.label1.Location = new System.Drawing.Point(271, 24);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(93, 13);
-            this.label1.TabIndex = 7;
+            this.label1.TabIndex = 0;
             this.label1.Text = "Table d\'encodage";
             // 
             // label2
@@ -143,7 +143,7 @@
             this.lblEntropie.Location = new System.Drawing.Point(6, 258);
             this.lblEntropie.Name = "lblEntropie";
             this.lblEntropie.Size = new System.Drawing.Size(56, 13);
-            this.lblEntropie.TabIndex = 10;
+            this.lblEntropie.TabIndex = 0;
             this.lblEntropie.Text = "lblEntropie";
             // 
             // lblRedondance
@@ -152,7 +152,7 @@
             this.lblRedondance.Location = new System.Drawing.Point(6, 287);
             this.lblRedondance.Name = "lblRedondance";
             this.lblRedondance.Size = new System.Drawing.Size(79, 13);
-            this.lblRedondance.TabIndex = 11;
+            this.lblRedondance.TabIndex = 0;
             this.lblRedondance.Text = "lblRedondance";
             // 
             // label4
@@ -161,7 +161,7 @@
             this.label4.Location = new System.Drawing.Point(716, 175);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(122, 13);
-            this.label4.TabIndex = 12;
+            this.label4.TabIndex = 0;
             this.label4.Text = "Bits avant compression :";
             // 
             // label5
@@ -170,7 +170,7 @@
             this.label5.Location = new System.Drawing.Point(716, 258);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(121, 13);
-            this.label5.TabIndex = 13;
+            this.label5.TabIndex = 0;
             this.label5.Text = "Bits après compression :";
             // 
             // lblBitsAvant
@@ -179,7 +179,7 @@
             this.lblBitsAvant.Location = new System.Drawing.Point(717, 206);
             this.lblBitsAvant.Name = "lblBitsAvant";
             this.lblBitsAvant.Size = new System.Drawing.Size(62, 13);
-            this.lblBitsAvant.TabIndex = 14;
+            this.lblBitsAvant.TabIndex = 0;
             this.lblBitsAvant.Text = "lblBitsAvant";
             // 
             // lblBitsApres
@@ -188,7 +188,7 @@
             this.lblBitsApres.Location = new System.Drawing.Point(717, 287);
             this.lblBitsApres.Name = "lblBitsApres";
             this.lblBitsApres.Size = new System.Drawing.Size(61, 13);
-            this.lblBitsApres.TabIndex = 15;
+            this.lblBitsApres.TabIndex = 0;
             this.lblBitsApres.Text = "lblBitsApres";
             // 
             // frmMain
