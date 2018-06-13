@@ -27,7 +27,7 @@ namespace shannon_fano
         public struct Decodage
         {
             public string text;
-            public Dictionary<char, string> dico;
+            public Dictionary<string, char> dico;
         }
 
         /// <summary>
@@ -203,7 +203,7 @@ namespace shannon_fano
                 //  Ecriture du caractère, suivis d'un espace puis de son code
                 tw.Write(car + " " + dico[car] + " ");
             }
-            tw.Write(Environment.NewLine);
+            tw.Write("00000000");
         }
 
         /// <summary>
@@ -214,11 +214,6 @@ namespace shannon_fano
         /// <param name="text">Text a encodé</param>
         public static void WriteFile(List<Element> list_encode, string nomFichier, string text)
         {
-            if (!File.Exists(nomFichier))
-            {
-                File.Create(nomFichier);
-            }
-
             Dictionary<Char, string> dico = new Dictionary<char, string>();
             TextWriter tw = new StreamWriter(nomFichier);
 
@@ -240,12 +235,41 @@ namespace shannon_fano
 
         public static Decodage Decode(string nomFichier)
         {
-            Dictionary<char, string> dico = new Dictionary<char, string>();
+            TextReader tr = new StreamReader(nomFichier);
             Decodage resultat = new Decodage();
-            //Lire tant que pas de fanion
-                // Ecrire les valeurs dans dico
-            //Lire le reste du fichier
-                //  Decoder le text a l'aide du dico et ecrire dans Resultat
+            string tmp = "";
+
+            resultat.dico = new Dictionary<string, char>();
+
+            while (tr.Peek() > -1)
+            {
+                string code = string.Empty;
+                char nChar = (char)tr.Read();
+                if (tr.Peek() == '0')
+                {
+                    for (int i = 0; i < 7; i++)
+                        tr.Read();
+                    break;
+                }
+                tr.Read();
+                while (tr.Peek() != ' ')
+                {
+                    code += (char)tr.Read();
+                }
+                resultat.dico.Add(code, nChar);
+                tr.Read();
+            }
+            while (tr.Peek() > -1)
+            {
+                tmp += (char)tr.Read();
+
+                if (resultat.dico.ContainsKey(tmp))
+                {
+                    resultat.text += resultat.dico[tmp];
+                    tmp = "";
+                }
+            }
+            tr.Close();
             return resultat;
         }
 
@@ -315,21 +339,27 @@ namespace shannon_fano
         {
             string affichage = string.Empty;
             string fichier = tbxSource.Text;
+            string fichierDest = tbxDestination.Text;
             string textDecode = "";
             double longeur = 0;
 
             Decodage decode = Decode(fichier);
             textDecode = decode.text;
-            Dictionary<char, string> dico = decode.dico;
+            Dictionary<string, char> dico = decode.dico;
 
             //  Création du texte à afficher dans la textbox a partir du dictionnaire
             for (int i = 0; i < dico.Count; i++)
             {
-                affichage += "Lettre : " + dico.ElementAt(i).Key;
-                affichage += " Code : " + dico.ElementAt(i).Value;
+                affichage += "Lettre : " + dico.ElementAt(i).Value;
+                affichage += " Code : " + dico.ElementAt(i).Key;
                 affichage += Environment.NewLine;
             }
-            
+            affichage += "\nVotre texte a été enregistré dans : " + fichierDest;
+
+            if (File.Exists(fichierDest))
+                File.Delete(fichierDest);
+            File.WriteAllText(fichierDest, textDecode);
+
             //  Affichage
             lblEntropie.Text = "Entropie : Calcul Impossible";
             lblRedondance.Text = "Redondance (R=D-H) : Calcul Impossible";
