@@ -211,9 +211,8 @@ namespace shannon_fano
         /// <param name="text">Text a encodé</param>
         public static void WriteFile(List<Element> list_encode, string nomFichier, string text)
         {
-            FileStream fs = new FileStream(nomFichier, FileMode.Create);
+            string Encodage = string.Empty;
             Dictionary<Char, string> dico = new Dictionary<char, string>();
-            string tmp = "";
             foreach (Element element in list_encode)
             {
                 dico.Add(element.Lettre, element.Code);
@@ -222,12 +221,10 @@ namespace shannon_fano
             {
                 foreach (char code in dico[lettre])
                 {
-                    tmp += code;
-                    if (tmp.Length == 8)
-                        fs.WriteByte(GetBytes(tmp)[0]);
+                    Encodage += code;
                 }
             }
-            fs.Close();
+            File.WriteAllText(nomFichier, Encodage);
         }
 
         public frmMain()
@@ -283,6 +280,7 @@ namespace shannon_fano
                 lblBitsAvant.Text = (text.Length * 8).ToString() + " bits";
                 lblBitsApres.Text = longeur.ToString() + " bits";
                 tbxAffichage.Text = affichage;
+                WriteFile(myList, tbxDestination.Text, text);
             }
             else
             {
