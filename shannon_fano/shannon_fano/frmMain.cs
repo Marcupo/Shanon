@@ -233,6 +233,11 @@ namespace shannon_fano
             tw.Close();
         }
 
+        /// <summary>
+        /// Lis un fichier et retourne le texte decode et un dictionnaire
+        /// </summary>
+        /// <param name="nomFichier">Nom du fichier a lire</param>
+        /// <returns></returns>
         public static Decodage Decode(string nomFichier)
         {
             TextReader tr = new StreamReader(nomFichier);
@@ -335,15 +340,25 @@ namespace shannon_fano
             }
         }
 
+        /// <summary>
+        /// Function principale qui permet de decoder un fichier
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void BtnDecoder_Click(object sender, EventArgs e)
         {
+            //  Initialisation
             string affichage = string.Empty;
             string fichier = tbxSource.Text;
             string fichierDest = tbxDestination.Text;
             string textDecode = "";
-            double longeur = 0;
 
+            tbxAffichage.Text = "Decodage en cours veuillez patientez...";
+
+            //  Appele la fonction de decodage
             Decodage decode = Decode(fichier);
+
+            //  Ressort les valeurs dans des variables
             textDecode = decode.text;
             Dictionary<string, char> dico = decode.dico;
 
@@ -356,15 +371,18 @@ namespace shannon_fano
             }
             affichage += "\nVotre texte a été enregistré dans : " + fichierDest;
 
+            //  Si un fichier du meme nom existe le supprime
             if (File.Exists(fichierDest))
                 File.Delete(fichierDest);
+
+            //  Ecrit le resultat dans le fichier demandé
             File.WriteAllText(fichierDest, textDecode);
 
             //  Affichage
             lblEntropie.Text = "Entropie : Calcul Impossible";
             lblRedondance.Text = "Redondance (R=D-H) : Calcul Impossible";
             lblBitsAvant.Text = (textDecode.Length * 8).ToString() + " bits";
-            lblBitsApres.Text = longeur.ToString() + " bits";
+            lblBitsApres.Text = "Calcul Impossible";
             tbxAffichage.Text = affichage;
         }
     }
