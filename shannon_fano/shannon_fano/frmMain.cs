@@ -188,21 +188,6 @@ namespace shannon_fano
             return list_encode;
         }
 
-        public static byte[] GetBytes(string bitString)
-        {
-            byte[] output = new byte[bitString.Length / 8];
-
-            for (int i = 0; i < output.Length; i++)
-            {
-                for (int b = 0; b <= 7; b++)
-                {
-                    output[i] |= (byte)((bitString[i * 8 + b] == '1' ? 1 : 0) << (7 - b));
-                }
-            }
-
-            return output;
-        }
-
         /// <summary>
         /// Cette fonction permet d'écrire dans un fichier notre texte encodé
         /// </summary>
@@ -247,7 +232,6 @@ namespace shannon_fano
                 string text = LireFichier(fichier);
                 string affichage = string.Empty;
                 double entropie, redondance, longeur = 0;
-
 
                 //  Lecture tu fichier pour le mettre dans un dictionnaire (lettre,proba)
                 Dictionary<char, double> dico = CreateDico(text);
