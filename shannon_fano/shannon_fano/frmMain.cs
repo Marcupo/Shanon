@@ -217,8 +217,8 @@ namespace shannon_fano
             entropie = EntropieCalcul(dico, text.Length);
             redondance = Math.Log(dico.Count, 2) - entropie;
 
-            lblEntropie.Text = "Entropie : " + entropie.ToString();
-            lblRedondance.Text = "Redondance (R=D-H) : " + redondance;
+            lblEntropie.Text = "Entropie : " + String.Format("{0:0.00000}", entropie);
+            lblRedondance.Text = "Redondance (R=D-H) : " + String.Format("{0:0.00000}", redondance);
 
             List<Element> myList = new List<Element>();
 
@@ -233,9 +233,7 @@ namespace shannon_fano
                 affichage += " code : " + myList[i].Code + Environment.NewLine;
                 longeur += myList[i].Code.Length * (myList[i].Proba * text.Length);
             }
-
-            Console.WriteLine("Notre longueur  : " + longeur);
-            Console.WriteLine("Longueur normal : " + text.Length * 8);
+            
             lblBitsAvant.Text = (text.Length * 8).ToString() + " bits";
             lblBitsApres.Text = longeur.ToString() + " bits";
             tbxAffichage.Text = affichage;
