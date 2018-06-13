@@ -24,6 +24,12 @@ namespace shannon_fano
             public string Code;
         }
 
+        public struct Decodage
+        {
+            public string text;
+            public Dictionary<char, string> dico;
+        }
+
         /// <summary>
         /// Lis un fichier
         /// </summary>
@@ -193,11 +199,11 @@ namespace shannon_fano
         /// <param name="text">Text a encodé</param>
         public static void WriteFile(List<Element> list_encode, string nomFichier, string text)
         {
-            if(!File.Exists(nomFichier))
+            if (!File.Exists(nomFichier))
             {
                 File.Create(nomFichier);
             }
-            
+
             Dictionary<Char, string> dico = new Dictionary<char, string>();
             TextWriter tw = new StreamWriter(nomFichier);
 
@@ -213,6 +219,17 @@ namespace shannon_fano
                 }
             }
             tw.Close();
+        }
+
+        public static Decodage Decode(string nomFichier)
+        {
+            Dictionary<char, string> dico = new Dictionary<char, string>();
+            Decodage resultat = new Decodage();
+            //Lire tant que pas de fanion
+                // Ecrire les valeurs dans dico
+            //Lire le reste du fichier
+                //  Decoder le text a l'aide du dico et ecrire dans Resultat
+            return resultat;
         }
 
         public frmMain()
@@ -232,6 +249,7 @@ namespace shannon_fano
             {
                 //  Initialisation
                 string fichier = tbxSource.Text;
+                string destination = tbxDestination.Text;
                 string text = LireFichier(fichier);
                 string affichage = string.Empty;
                 double entropie, redondance, longeur = 0;
@@ -257,7 +275,7 @@ namespace shannon_fano
                 {
                     affichage += "Lettre : " + myList[i].Lettre + " Proba : ";
                     affichage += String.Format("{0:0.00000}", myList[i].Proba);
-                    affichage += " code : " + myList[i].Code + Environment.NewLine;
+                    affichage += " Code : " + myList[i].Code + Environment.NewLine;
                     longeur += myList[i].Code.Length * (myList[i].Proba * text.Length);
                 }
 
@@ -267,12 +285,40 @@ namespace shannon_fano
                 lblBitsAvant.Text = (text.Length * 8).ToString() + " bits";
                 lblBitsApres.Text = longeur.ToString() + " bits";
                 tbxAffichage.Text = affichage;
-                WriteFile(myList, tbxDestination.Text, text);
+                //  Ecriture dans le fichier
+                WriteFile(myList, destination, text);
             }
             else
             {
                 tbxAffichage.Text = "Nous n'avons pas pu trouvé votre fichier source veuillez verifiez le chemin \"" + tbxSource.Text + "\"";
             }
+        }
+
+        private void BtnDecoder_Click(object sender, EventArgs e)
+        {
+            string affichage = string.Empty;
+            string fichier = tbxSource.Text;
+            string textDecode = "";
+            double longeur = 0;
+
+            Decodage decode = Decode(fichier);
+            textDecode = decode.text;
+            Dictionary<char, string> dico = decode.dico;
+
+            //  Création du texte à afficher dans la textbox a partir du dictionnaire
+            for (int i = 0; i < dico.Count; i++)
+            {
+                affichage += "Lettre : " + dico.ElementAt(i).Key;
+                affichage += " Code : " + dico.ElementAt(i).Value;
+                affichage += Environment.NewLine;
+            }
+            
+            //  Affichage
+            lblEntropie.Text = "Entropie : Calcul Impossible";
+            lblRedondance.Text = "Redondance (R=D-H) : Calcul Impossible";
+            lblBitsAvant.Text = (textDecode.Length * 8).ToString() + " bits";
+            lblBitsApres.Text = longeur.ToString() + " bits";
+            tbxAffichage.Text = affichage;
         }
     }
 }

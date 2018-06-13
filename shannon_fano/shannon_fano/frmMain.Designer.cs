@@ -63,6 +63,7 @@
             this.btnDecoder.TabIndex = 5;
             this.btnDecoder.Text = "Decoder";
             this.btnDecoder.UseVisualStyleBackColor = true;
+            this.btnDecoder.Click += new System.EventHandler(this.BtnDecoder_Click);
             // 
             // btnEncoder
             // 
