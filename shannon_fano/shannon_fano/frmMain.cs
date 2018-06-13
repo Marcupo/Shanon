@@ -186,6 +186,21 @@ namespace shannon_fano
         }
 
         /// <summary>
+        /// write_header est utilisée pour écrire l'en-tête du fichier compresser
+        /// </summary>
+        /// <param name="tw"></param>
+        /// <param name="dico"></param>
+        public static void write_header(TextWriter tw, Dictionary<char, string> dico)
+        {
+            foreach (char car in dico.Keys)
+            {
+                //  Ecriture du caractère, suivis d'un espace puis de son code
+                tw.Write(car + " " + dico[car] + " ");
+            }
+            tw.Write(Environment.NewLine);
+        }
+
+        /// <summary>
         /// Cette fonction permet d'écrire dans un fichier notre texte encodé
         /// </summary>
         /// <param name="list_encode">Notre table d'encodage</param>
@@ -205,12 +220,14 @@ namespace shannon_fano
             {
                 dico.Add(element.Lettre, element.Code);
             }
+
+            //  Ecriture de l'en-tête avant le reste du fichier
+            write_header(tw, dico);
+
             foreach (char lettre in text)
             {
-                foreach (char code in dico[lettre])
-                {
-                    tw.Write(code);
-                }
+                //  Ecriture du code lié au caractère
+                tw.Write(dico[lettre]);
             }
             tw.Close();
         }
@@ -237,18 +254,18 @@ namespace shannon_fano
                 double entropie, redondance, longeur = 0;
 
                 //  Lecture tu fichier pour le mettre dans un dictionnaire (lettre,proba)
-                Dictionary<char, double> dico = CreateDico(text);
+                Dictionary<char, double> dico_proba = CreateDico(text);
 
                 //  Tri les elements du dictionnaire
-                dico = TriDico(dico);
+                dico_proba = TriDico(dico_proba);
 
                 //  Calcule L'entropie et la redondance
-                entropie = EntropieCalcul(dico, text.Length);
-                redondance = Math.Log(dico.Count, 2) - entropie;
+                entropie = EntropieCalcul(dico_proba, text.Length);
+                redondance = Math.Log(dico_proba.Count, 2) - entropie;
 
                 //  Crée la table d'encodage
                 List<Element> myList = new List<Element>();
-                myList = FillList(dico);
+                myList = FillList(dico_proba);
                 myList = Encoder(myList, 0.5f);
                 myList.Reverse();
 

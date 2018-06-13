@@ -57,18 +57,18 @@
             // 
             // btnDecoder
             // 
-            this.btnDecoder.Location = new System.Drawing.Point(274, 426);
+            this.btnDecoder.Location = new System.Drawing.Point(12, 440);
             this.btnDecoder.Name = "btnDecoder";
-            this.btnDecoder.Size = new System.Drawing.Size(200, 72);
+            this.btnDecoder.Size = new System.Drawing.Size(126, 48);
             this.btnDecoder.TabIndex = 5;
             this.btnDecoder.Text = "Decoder";
             this.btnDecoder.UseVisualStyleBackColor = true;
             // 
             // btnEncoder
             // 
-            this.btnEncoder.Location = new System.Drawing.Point(501, 426);
+            this.btnEncoder.Location = new System.Drawing.Point(142, 440);
             this.btnEncoder.Name = "btnEncoder";
-            this.btnEncoder.Size = new System.Drawing.Size(200, 72);
+            this.btnEncoder.Size = new System.Drawing.Size(126, 48);
             this.btnEncoder.TabIndex = 2;
             this.btnEncoder.Text = "Encoder";
             this.btnEncoder.UseVisualStyleBackColor = true;
@@ -76,7 +76,7 @@
             // 
             // btnChoisirDestination
             // 
-            this.btnChoisirDestination.Location = new System.Drawing.Point(707, 96);
+            this.btnChoisirDestination.Location = new System.Drawing.Point(9, 176);
             this.btnChoisirDestination.Name = "btnChoisirDestination";
             this.btnChoisirDestination.Size = new System.Drawing.Size(259, 23);
             this.btnChoisirDestination.TabIndex = 4;
@@ -91,7 +91,7 @@
             this.tbxAffichage.Name = "tbxAffichage";
             this.tbxAffichage.ReadOnly = true;
             this.tbxAffichage.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.tbxAffichage.Size = new System.Drawing.Size(427, 371);
+            this.tbxAffichage.Size = new System.Drawing.Size(687, 463);
             this.tbxAffichage.TabIndex = 4;
             // 
             // tbxSource
@@ -104,7 +104,7 @@
             // 
             // tbxDestination
             // 
-            this.tbxDestination.Location = new System.Drawing.Point(707, 70);
+            this.tbxDestination.Location = new System.Drawing.Point(9, 150);
             this.tbxDestination.Name = "tbxDestination";
             this.tbxDestination.Size = new System.Drawing.Size(259, 20);
             this.tbxDestination.TabIndex = 3;
@@ -122,7 +122,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(781, 54);
+            this.label2.Location = new System.Drawing.Point(83, 134);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(127, 13);
             this.label2.TabIndex = 8;
@@ -140,25 +140,25 @@
             // lblEntropie
             // 
             this.lblEntropie.AutoSize = true;
-            this.lblEntropie.Location = new System.Drawing.Point(6, 258);
+            this.lblEntropie.Location = new System.Drawing.Point(26, 359);
             this.lblEntropie.Name = "lblEntropie";
-            this.lblEntropie.Size = new System.Drawing.Size(56, 13);
+            this.lblEntropie.Size = new System.Drawing.Size(55, 13);
             this.lblEntropie.TabIndex = 0;
-            this.lblEntropie.Text = "lblEntropie";
+            this.lblEntropie.Text = "Entropie : ";
             // 
             // lblRedondance
             // 
             this.lblRedondance.AutoSize = true;
-            this.lblRedondance.Location = new System.Drawing.Point(6, 287);
+            this.lblRedondance.Location = new System.Drawing.Point(25, 384);
             this.lblRedondance.Name = "lblRedondance";
-            this.lblRedondance.Size = new System.Drawing.Size(79, 13);
+            this.lblRedondance.Size = new System.Drawing.Size(78, 13);
             this.lblRedondance.TabIndex = 0;
-            this.lblRedondance.Text = "lblRedondance";
+            this.lblRedondance.Text = "Redondance : ";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(716, 175);
+            this.label4.Location = new System.Drawing.Point(26, 227);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(122, 13);
             this.label4.TabIndex = 0;
@@ -167,7 +167,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(716, 258);
+            this.label5.Location = new System.Drawing.Point(25, 287);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(121, 13);
             this.label5.TabIndex = 0;
@@ -176,20 +176,20 @@
             // lblBitsAvant
             // 
             this.lblBitsAvant.AutoSize = true;
-            this.lblBitsAvant.Location = new System.Drawing.Point(717, 206);
+            this.lblBitsAvant.Location = new System.Drawing.Point(27, 250);
             this.lblBitsAvant.Name = "lblBitsAvant";
-            this.lblBitsAvant.Size = new System.Drawing.Size(62, 13);
+            this.lblBitsAvant.Size = new System.Drawing.Size(32, 13);
             this.lblBitsAvant.TabIndex = 0;
-            this.lblBitsAvant.Text = "lblBitsAvant";
+            this.lblBitsAvant.Text = "0 bits";
             // 
             // lblBitsApres
             // 
             this.lblBitsApres.AutoSize = true;
-            this.lblBitsApres.Location = new System.Drawing.Point(717, 287);
+            this.lblBitsApres.Location = new System.Drawing.Point(26, 314);
             this.lblBitsApres.Name = "lblBitsApres";
-            this.lblBitsApres.Size = new System.Drawing.Size(61, 13);
+            this.lblBitsApres.Size = new System.Drawing.Size(32, 13);
             this.lblBitsApres.TabIndex = 0;
-            this.lblBitsApres.Text = "lblBitsApres";
+            this.lblBitsApres.Text = "0 bits";
             // 
             // frmMain
             // 
@@ -213,6 +213,7 @@
             this.Controls.Add(this.btnEncoder);
             this.Controls.Add(this.btnDecoder);
             this.Controls.Add(this.btnChoisirSource);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "frmMain";
             this.ShowIcon = false;
