@@ -33,8 +33,8 @@
             this.btnEncoder = new System.Windows.Forms.Button();
             this.btnChoisirDestination = new System.Windows.Forms.Button();
             this.tbxAffichage = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.tbxSource = new System.Windows.Forms.TextBox();
+            this.tbxDestination = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -57,7 +57,7 @@
             // 
             // btnDecoder
             // 
-            this.btnDecoder.Location = new System.Drawing.Point(203, 284);
+            this.btnDecoder.Location = new System.Drawing.Point(218, 426);
             this.btnDecoder.Name = "btnDecoder";
             this.btnDecoder.Size = new System.Drawing.Size(75, 23);
             this.btnDecoder.TabIndex = 1;
@@ -66,16 +66,17 @@
             // 
             // btnEncoder
             // 
-            this.btnEncoder.Location = new System.Drawing.Point(442, 284);
+            this.btnEncoder.Location = new System.Drawing.Point(544, 426);
             this.btnEncoder.Name = "btnEncoder";
             this.btnEncoder.Size = new System.Drawing.Size(75, 23);
             this.btnEncoder.TabIndex = 2;
             this.btnEncoder.Text = "Encoder";
             this.btnEncoder.UseVisualStyleBackColor = true;
+            this.btnEncoder.Click += new System.EventHandler(this.BtnEncoder_Click);
             // 
             // btnChoisirDestination
             // 
-            this.btnChoisirDestination.Location = new System.Drawing.Point(557, 112);
+            this.btnChoisirDestination.Location = new System.Drawing.Point(769, 96);
             this.btnChoisirDestination.Name = "btnChoisirDestination";
             this.btnChoisirDestination.Size = new System.Drawing.Size(75, 23);
             this.btnChoisirDestination.TabIndex = 3;
@@ -84,26 +85,28 @@
             // 
             // tbxAffichage
             // 
+            this.tbxAffichage.Font = new System.Drawing.Font("Courier New", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxAffichage.Location = new System.Drawing.Point(192, 38);
             this.tbxAffichage.Multiline = true;
             this.tbxAffichage.Name = "tbxAffichage";
             this.tbxAffichage.ReadOnly = true;
-            this.tbxAffichage.Size = new System.Drawing.Size(314, 210);
+            this.tbxAffichage.Size = new System.Drawing.Size(427, 371);
             this.tbxAffichage.TabIndex = 4;
             // 
-            // textBox2
+            // tbxSource
             // 
-            this.textBox2.Location = new System.Drawing.Point(21, 70);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(100, 20);
-            this.textBox2.TabIndex = 5;
+            this.tbxSource.Location = new System.Drawing.Point(21, 70);
+            this.tbxSource.Name = "tbxSource";
+            this.tbxSource.Size = new System.Drawing.Size(100, 20);
+            this.tbxSource.TabIndex = 5;
+            this.tbxSource.Text = "A.txt";
             // 
-            // textBox3
+            // tbxDestination
             // 
-            this.textBox3.Location = new System.Drawing.Point(557, 86);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(100, 20);
-            this.textBox3.TabIndex = 6;
+            this.tbxDestination.Location = new System.Drawing.Point(769, 70);
+            this.tbxDestination.Name = "tbxDestination";
+            this.tbxDestination.Size = new System.Drawing.Size(100, 20);
+            this.tbxDestination.TabIndex = 6;
             // 
             // label1
             // 
@@ -117,7 +120,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(554, 70);
+            this.label2.Location = new System.Drawing.Point(766, 54);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(127, 13);
             this.label2.TabIndex = 8;
@@ -135,7 +138,7 @@
             // lblEntropie
             // 
             this.lblEntropie.AutoSize = true;
-            this.lblEntropie.Location = new System.Drawing.Point(54, 185);
+            this.lblEntropie.Location = new System.Drawing.Point(18, 320);
             this.lblEntropie.Name = "lblEntropie";
             this.lblEntropie.Size = new System.Drawing.Size(56, 13);
             this.lblEntropie.TabIndex = 10;
@@ -144,7 +147,7 @@
             // lblRedondance
             // 
             this.lblRedondance.AutoSize = true;
-            this.lblRedondance.Location = new System.Drawing.Point(61, 235);
+            this.lblRedondance.Location = new System.Drawing.Point(17, 349);
             this.lblRedondance.Name = "lblRedondance";
             this.lblRedondance.Size = new System.Drawing.Size(79, 13);
             this.lblRedondance.TabIndex = 11;
@@ -153,7 +156,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(535, 185);
+            this.label4.Location = new System.Drawing.Point(747, 169);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(122, 13);
             this.label4.TabIndex = 12;
@@ -162,7 +165,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(535, 245);
+            this.label5.Location = new System.Drawing.Point(747, 229);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(121, 13);
             this.label5.TabIndex = 13;
@@ -171,7 +174,7 @@
             // lblBitsAvant
             // 
             this.lblBitsAvant.AutoSize = true;
-            this.lblBitsAvant.Location = new System.Drawing.Point(544, 214);
+            this.lblBitsAvant.Location = new System.Drawing.Point(756, 198);
             this.lblBitsAvant.Name = "lblBitsAvant";
             this.lblBitsAvant.Size = new System.Drawing.Size(62, 13);
             this.lblBitsAvant.TabIndex = 14;
@@ -180,7 +183,7 @@
             // lblBitsApres
             // 
             this.lblBitsApres.AutoSize = true;
-            this.lblBitsApres.Location = new System.Drawing.Point(554, 274);
+            this.lblBitsApres.Location = new System.Drawing.Point(766, 258);
             this.lblBitsApres.Name = "lblBitsApres";
             this.lblBitsApres.Size = new System.Drawing.Size(61, 13);
             this.lblBitsApres.TabIndex = 15;
@@ -188,9 +191,10 @@
             // 
             // frmMain
             // 
+            this.AcceptButton = this.btnEncoder;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(692, 382);
+            this.ClientSize = new System.Drawing.Size(1001, 546);
             this.Controls.Add(this.lblBitsApres);
             this.Controls.Add(this.lblBitsAvant);
             this.Controls.Add(this.label5);
@@ -200,8 +204,8 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
+            this.Controls.Add(this.tbxDestination);
+            this.Controls.Add(this.tbxSource);
             this.Controls.Add(this.tbxAffichage);
             this.Controls.Add(this.btnChoisirDestination);
             this.Controls.Add(this.btnEncoder);
@@ -223,8 +227,8 @@
         private System.Windows.Forms.Button btnEncoder;
         private System.Windows.Forms.Button btnChoisirDestination;
         private System.Windows.Forms.TextBox tbxAffichage;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox tbxSource;
+        private System.Windows.Forms.TextBox tbxDestination;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
