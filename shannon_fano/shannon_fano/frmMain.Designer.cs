@@ -86,7 +86,7 @@
             // 
             // tbxAffichage
             // 
-            this.tbxAffichage.Font = new System.Drawing.Font("Arial Narrow", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbxAffichage.Font = new System.Drawing.Font("Courier New", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tbxAffichage.Location = new System.Drawing.Point(274, 49);
             this.tbxAffichage.Multiline = true;
             this.tbxAffichage.Name = "tbxAffichage";

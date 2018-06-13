@@ -196,7 +196,7 @@ namespace shannon_fano
         /// </summary>
         /// <param name="tw"></param>
         /// <param name="dico"></param>
-        public static void write_header(TextWriter tw, Dictionary<char, string> dico)
+        public static void WriteHeader(TextWriter tw, Dictionary<char, string> dico)
         {
             foreach (char car in dico.Keys)
             {
@@ -228,7 +228,7 @@ namespace shannon_fano
             }
 
             //  Ecriture de l'en-tête avant le reste du fichier
-            write_header(tw, dico);
+            WriteHeader(tw, dico);
 
             foreach (char lettre in text)
             {
