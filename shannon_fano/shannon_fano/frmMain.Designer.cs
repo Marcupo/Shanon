@@ -48,6 +48,7 @@
             // 
             // btnChoisirSource
             // 
+            this.btnChoisirSource.Enabled = false;
             this.btnChoisirSource.Location = new System.Drawing.Point(9, 96);
             this.btnChoisirSource.Name = "btnChoisirSource";
             this.btnChoisirSource.Size = new System.Drawing.Size(259, 23);
@@ -77,6 +78,7 @@
             // 
             // btnChoisirDestination
             // 
+            this.btnChoisirDestination.Enabled = false;
             this.btnChoisirDestination.Location = new System.Drawing.Point(9, 176);
             this.btnChoisirDestination.Name = "btnChoisirDestination";
             this.btnChoisirDestination.Size = new System.Drawing.Size(259, 23);

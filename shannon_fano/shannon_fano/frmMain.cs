@@ -16,7 +16,6 @@ namespace shannon_fano
 {
     public partial class frmMain : Form
     {
-
         public struct Element
         {
             public char Lettre;
@@ -128,19 +127,24 @@ namespace shannon_fano
         /// <returns></returns>
         static List<Element> Encoder(List<Element> list_encode, float MaxTaux)
         {
+            //  Initialisation
             double cpt = 0;
             int idxStart = 0;
             List<Element> listTraitement = new List<Element>();
             Element temp;
+
             //  Si la liste est plus petit que 2
             if (list_encode.Count <= 2)
             {
+                //  Si la liste n'est pas égale a 1
                 if (list_encode.Count == 2)
                 {
+                    //  Rajoute un 1 dans le code pour le premier
                     temp = list_encode[0];
                     temp.Code += "1";
                     list_encode[0] = temp;
 
+                    //  Rajoute un 0 dans le code pour le deuxieme
                     temp = list_encode[1];
                     temp.Code += "0";
                     list_encode[1] = temp;
@@ -148,16 +152,21 @@ namespace shannon_fano
             }
             else
             {
-                //  Partie du haut
+                //  Partie du haut de la liste
                 for (int i = 0; i < list_encode.Count; i++)
                 {
+                    //  Stocke l'index actuel (pour la partie du bas de la liste)
                     idxStart = i;
+                    //  Tant que il reste des elements et que on est en dessous de la moitier donnée
                     if ((cpt < MaxTaux) && (i + 1 != list_encode.Count))
                     {
+                        //  Rajoute la valeur de proba dans cpt
                         cpt += list_encode[i].Proba;
+                        //  Rajoute un 1 au code de l'element
                         temp = list_encode[i];
                         temp.Code += "1";
                         list_encode[i] = temp;
+                        //  Rajoute l'element a la liste pour continuer a la traiter
                         listTraitement.Add(list_encode[i]);
                     }
                     else
@@ -165,22 +174,29 @@ namespace shannon_fano
                         break;
                     }
                 }
+                //  Rappele la fonction avec la sous liste
                 listTraitement = Encoder(listTraitement, MaxTaux / 2);
+                //  Met les elements de la liste principale a jour
                 for (int i = 0; i < idxStart; i++)
                 {
                     temp = listTraitement[i];
                     list_encode[i] = temp;
                 }
+                //  Vide la liste de traitement
                 listTraitement.Clear();
-                //  Partie du bas
+                //  Partie du bas de la liste
                 for (int i = idxStart; i < list_encode.Count; i++)
                 {
+                    //  Rajoute un 0 au code de l'element
                     temp = list_encode[i];
                     temp.Code += "0";
                     list_encode[i] = temp;
+                    //  Rajoute l'element a la liste pour continuer a la traiter
                     listTraitement.Add(list_encode[i]);
                 }
+                //  Rappele la fonction avec la sous liste
                 listTraitement = Encoder(listTraitement, MaxTaux / 2);
+                //  Met les elements de la liste principale a jour
                 for (int i = idxStart; i < list_encode.Count; i++)
                 {
                     temp = listTraitement[i - idxStart];
@@ -188,6 +204,7 @@ namespace shannon_fano
 
                 }
             }
+            //  Retourne la liste avec tout les codage des caractère a jour
             return list_encode;
         }
 
@@ -240,37 +257,50 @@ namespace shannon_fano
         /// <returns></returns>
         public static Decodage Decode(string nomFichier)
         {
+            //  Initialisation
             TextReader tr = new StreamReader(nomFichier);
             Decodage resultat = new Decodage();
             string tmp = "";
-
             resultat.dico = new Dictionary<string, char>();
-
+            string code;
+            char nChar;
+            //  Parcours l'entête
             while (tr.Peek() > -1)
             {
-                string code = string.Empty;
-                char nChar = (char)tr.Read();
+                //  Vide la variable code
+                code = string.Empty;
+                //  écrit le caractère dans nChar
+                nChar = (char)tr.Read();
+                //  Si on lis le fanion on skip le fanion et on passe au texte
                 if (tr.Peek() == '0')
                 {
                     for (int i = 0; i < 7; i++)
                         tr.Read();
                     break;
                 }
+                //  On skip l'espace entre les caractère
                 tr.Read();
+                //  Tant qu'on a pas fini de lire le code
                 while (tr.Peek() != ' ')
                 {
+                    //  Rajoute le code a la variable code
                     code += (char)tr.Read();
                 }
+                //  Insere la lettre et le code dans le dictionnaire
                 resultat.dico.Add(code, nChar);
                 tr.Read();
             }
+            //  Parcours le texte encodé
             while (tr.Peek() > -1)
             {
+                //  Rajoute le chiffre 1/0 dans tmp
                 tmp += (char)tr.Read();
-
+                //  Si ça correspond a un encodage d'une lettre
                 if (resultat.dico.ContainsKey(tmp))
                 {
+                    //  Rajoute cette lettre au texte final
                     resultat.text += resultat.dico[tmp];
+                    //  Renitialise tmp
                     tmp = "";
                 }
             }
